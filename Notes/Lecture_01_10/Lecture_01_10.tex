@@ -1,0 +1,244 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{flushleft}
+    Brandon Szeto \\
+    Professor Kenneth Zeger \\
+	ECE 109 \\
+	Week of Jauary 10, 2023
+\end{flushleft}
+
+\begin{center}
+	\Large \textbf{Week 1, Lecture 1}
+\end{center}
+\normalsize
+
+\begin{itemize}
+    \item 
+An \textbf{experiment} involves randomness and results in an \textbf{outcome}. Every experiment has exactly one outcome.
+    \item Example: Experiment: Flip 2 coins
+        \begin{itemize}
+            \item Outcome Possibilities: HH, HT, TH, TT
+            \item \textbf{Exactly one} outcome occurs.
+        \end{itemize}
+    \item Example: Roll 1 die
+        \begin{itemize}
+            \item Outcome possibilites are 1, 2, 3, 4, 5, 6.
+        \end{itemize}
+    \item Example: 
+        \begin{itemize}
+            \item 1 coin flip: $S = {H, T}$
+            \item 2 coin flip: $S = {HH, TT, HT, TH}$
+            \item 3 coin flip: $S = {HHH, HTT, ... HTT, TTT}$
+            \item $n$ coin flips: $|S| = 2^n$
+        \end{itemize}
+    \item Example: Roll 2 dice 
+        \begin{itemize}
+            \item $ S = 
+    \begin{array}{lr}
+        (1,1), (1,2) ...\\
+        (2,1), (2,2) ... 
+    \end{array}
+    $
+            \item $|S| = 36$
+        \end{itemize}
+    \item An \textbf{sample space} is the set of all possible outcomes of an experiment.
+    \item An \textbf{event} is any subset of the sample space.
+    \item Example: Flip two coins
+        \begin{itemize}
+            \item $E = {HH, TT} = \text{both flips are the same}$
+            \item $E = {HT, ,TH, TT} = \text{At least one tail}$
+        \end{itemize}
+    \item If $E = \phi \text{ (empty set), then } E \text{ is called
+        the\textbf{ null event}}$
+    \item If $E = \phi \text{ (entire sample space), then } E \text{ is called
+        the\textbf{ sure event}}$
+    \item We say that an event \textbf{occurred} (or happened) if the outcome of
+        the experiment lies in the event.
+    \item For an event $E \subseteq S$, $P(E)$ will be a probability.
+    \item Set theory review:
+        \begin{itemize}
+            \item Unions
+            \item Intersections
+            \item Complements
+            \item Venn Diagrams
+            \item DeMorgan's Law
+            \item Disjoint
+        \end{itemize}
+    \item \textbf{Notation:} The intersection of sets $A, B$ is usually denoted
+        $A \cap B$. In probability, we use the abbreviated notation $AB = A \cap
+        B$.
+    % \item The \textbf{Complement} of events $E$ is $E^c = {x \in S: x \ni E}. Other notation: S - E.
+    % \item Sets E and F are disjiont if $E \cap F = \phi$.
+    \item Example: Flip 2 coins
+        \begin{itemize}
+            \item $E = {HH, HT}$.
+            \item $F = {TT, HT}$.
+            \item $EF = {HT}$
+            \item $E \cup F = {HH, TT, HT} = {TH}^c$
+            \item $E^c = {TT, TH}$
+            \item Which of the events below occur?
+                \begin{itemize}
+                    \item E 
+                    \item $E^c$
+                    \item F
+                    \item $F^c$
+                \end{itemize}
+            \item Did Occur
+                \begin{itemize}
+                    \item E 
+                    \item $E^c$
+                    \item F
+                    \item $F^c$
+                \end{itemize}
+        \end{itemize}
+\end{itemize}
+
+\begin{center}
+	\Large \textbf{Week 1, Lecture 2}
+\end{center}
+\normalsize
+\begin{itemize}
+    \item Experiment
+    \item Outcome
+    \item Sample space
+    \item Event
+\end{itemize}
+Set Theory 
+\begin{itemize}
+    \item $(E^c)^c = E$
+    \item DeMorgan's Law
+        \begin{itemize}
+            \item Events $E$, $F$
+            \item $(E \cup F)^c = E^cF^c$
+            \item $(EF)^c = E^c \cup F^c$
+            \item This works for any number of sets
+        \end{itemize}
+\end{itemize}
+Example:
+\begin{itemize}
+    \item $ABC^c$
+    \item This is the event that:
+        \begin{itemize}
+            \item A and B and $C^c$ occur
+            \item A and B occur, \textbf{but} not C
+        \end{itemize}
+    \item \textbf{Note:} The word "but" is almost always logically equivalent to "and."
+    \item \textbf{Note:} In ECE109, when we use "or" we always mean inclusive,
+        unless stated otherwise.
+\end{itemize}
+Example:
+\begin{itemize}
+    \item Exactly one of A, B, C occurs
+    \item $AB^cC^c \cup A^cBC^c \cup A^cB^cC$
+    \item Order doesn't matter, unions are commutative
+\end{itemize}
+
+Definition: Probability is an assignment of a number to an event. i.e. for each
+event $E \subset S$, $P(E) \subset R$, where R is the set of real numbers.
+
+Probability must satisfy 3 axioms
+\begin{enumerate}
+    \item $ 0 \leq P(E) \leq 1 $
+    \item $ P(S) = 1 $
+    \item If $E_1, E_2, E_3, ... $ are events that are pairwise disjoint, (i.e.
+        $E_iE_j = 0$ whenever $i \neq j$ ), then $P(E_1 \cup E_2 \cup E_3 \cup
+        ... ) = P(E_1) + P(E_2) + P(E_3) + ... $
+\end{enumerate}
+Note: May be and infinite sum
+
+If $E$, $F$, are not disjoint, then we cannot say generally that $P(E \cup F) =
+P(E) + P(F)$. We would otherwise get double counting of the probability in the
+intersection of $E \cup F$.
+
+\textbf{Fact:} $P(A^c) = 1 - P(A)$
+Proof: $S = A \cup A^c$ and $A$ and $A^c$ are disjoint ($AA^c = 0$. Therefore, $1
+= P(S) = P(A \cup A^c) = P(A) + P(A^c) $
+
+Example:
+\begin{itemize}
+    \item Given the events $A$, $B$ such that:
+        \begin{itemize}
+            \item $P(AB) = 0.4$
+            \item $P(AB^c) = 0.1$
+            \item $P(A \cup B) = 0.6$
+        \end{itemize}
+\end{itemize}
+
+\textbf{Fact:} $P(0) = 0$
+Proof: $0 = S^c$, $P(0) = P(S^c) = 1 - P(S) = 1 - 1 = 0$
+
+\textbf{Fact:} $P(E \cup F) = P(E) + P(F) - P(EF)$
+
+\textbf{Note:} The last term accounts for double counting
+\textbf{Fact:} If $E \subseteq F$, then $P(E) \leq P(F)$. Therefore, $P(F) = P(E
+\cup E^cF) = P(E) + P(E^cF) \geq P(E)$. As a consequence, since $AB \subseteq A$
+and $AB \subseteq B$ then $P(AB) \leq P(A)$ and $P(AB) \leq P(B)$. \\
+\underline{Special Situation:} Sometimes every outcome in a sample space has the
+same probability. We call this "equiprobable outcomes". If we have equally
+likely outcomes, then for any event E,
+$$ P(E) = \frac{|E|}{|S|} = \frac{\text{size of E}}{\text{size of S}}$$
+This assumes $S$ is finite.
+
+Example:
+\begin{itemize}
+    \item Pick a card randomly from a standard deck. 
+    \item $|S| = 52$. 
+    \item Let $E =$ "the card is red". 
+    \item $|E| = 26$. 
+    \item $P(E) = \frac{|E|}{|S|} = \frac{26}{52} = \frac{1}{2}$. 
+    \item Let $F =$ "the card is an ace". 
+    \item $|F| = 4$. 
+    \item $P(E) = \frac{|F|}{|S|} = \frac{4}{52} = \frac{1}{13}$. 
+\end{itemize}
+
+Combinatorics studies counting set sizes. We use permutations and combinations.
+
+\textbf{Permuatations:} orderings of a set.
+\begin{itemize}
+    \item Given {1, 2, 3, ... , n}
+    \item There are n! different orderings.
+    \item $n! = n(n - 1)(n - 2) ... 1$
+    \item $n! = n(n - 1)!$
+    \item $0! = 1$ and $1! = 1$
+\end{itemize}
+
+Example:
+\begin{itemize}
+    \item $n = 3$
+    \item $3! = 3 * 2 * 1 = 6$ permutations
+\end{itemize}
+
+Combinations
+$$ \begin{aligned} 
+    \binom{n}{k} &= \text{"n choose k"} \\
+                 &= \frac{n!}{k!(n - k)!} \\
+                 &= \text{the number of subsets of size k from a set of size n}
+                 \\
+\end{aligned}$$
+
+Example:
+\begin{itemize}
+    \item How many triples of letters can we pick from A, B, C, D, E? (order
+        does not matter).
+    \item $\binom{5}{3} = \frac{5!}{3!(5 - 3)!} = 10$
+    \item ABC, ABD, ABE, ACD, ACE, ADE, BCD, BCE, BDE, CDE
+    \item There are 10 subsets of size 3
+\end{itemize}
+
+\textbf{Recall the binomial theorem:}
+$$\begin{aligned}
+    (x + y)^n &= \sum_{k = 0}^{n} \binom{n}{k} x^ky^{n - k}\\
+    (x + y)^1 &= x + y \\
+    (x + y)^2 &= \binom{2}{0}x^2 + \binom{2}{1}xy + \binom{2}{2}y^2 \\
+\end{aligned}$$
+We can use Pascal's triangle to get the coefficients
+
+\begin{center}
+	\Large \textbf{Discussion 1}
+\end{center}
+\normalsize
+
+\end{document}
