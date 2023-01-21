@@ -1,0 +1,142 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, cancel, xcolor}
+
+\newcommand\hcancel[2][black]{\setbox0=\hbox{$#2$}%
+\rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
+
+\begin{document}
+
+\begin{flushleft}
+    Brandon Szeto \\
+    Professor Kenneth Zeger \\
+	ECE 109 \\
+\end{flushleft}
+
+\begin{center}
+	\Large \textbf{Week 2, Lecture 01-17-23}
+\end{center}
+\normalsize
+
+\begin{itemize}
+    \item[\textbf{\underline{Example:}}] \textbf{Given a box with 6 pennies and 8 quarters, pick
+        5 of the coins at random (without replacement). What is the probability
+    that we choose 2 pennies and 3 quarters?} \\
+    There are a total of $\binom{14}{5}$ 5-tuples of coins. How many of these
+    choices are "good"? i.e. 2 pennies, 3 quarters. There are $\binom{6}{2}$
+    ways of picking 2 pennies and $\binom{8}{3}$ ways of picking 3 quarters.
+    $$\begin{aligned}
+        &\therefore \text{the total number of good 5-tuples is the product} \binom{6}{2}
+    \binom{8}{3} \\
+        &\therefore \text{using equiprobability (i.e. all 5-tuples have the same
+    probability)} \\
+        &\therefore \text{Probability} = \frac{\binom{6}{2}\binom{8}{3}}{\binom{14}{5}}
+\end{aligned}$$
+    \item[\textbf{\underline{Example:}}] \textbf{Toss a coin 3 times. What is
+        the probability we get exactly 2 heads?} \\
+        The sample space of all possible outcomes can be defined as:
+        $$ S = \{HHH, HHT, HTH, HTT, THH, THT, TTH, TTT\}$$
+        $$ P(\{ HHT, HTH, THH \}) = \frac{3}{8}$$
+        \textbf{What is the probability we get
+        exactly 2 heads, given that the first two flips are not both heads?}
+        $$ S = \{\hcancel[red]{HHH}, \hcancel[red]{HHT}, HTH, HTT, THH, THT, TTH, TTT\}$$
+        Now, there is only two possible outcomes (i.e. HTH and THH) and only 6
+        to choose from. \\
+        Let us define the events:
+        $$ \begin{aligned}
+            E &= \text{"Exactly two heads occur"}\\
+            F &= \{HHT, HHH\}^c\\
+        \end{aligned} $$
+        Intuitively, the probability is $\frac{2}{6} = \frac{1}{3}$.
+        $$\boxed{ \text{We write } P(E | F) \text{ to mean } P(E) \text{ given }
+        P(F) }$$
+        $$\boxed{ \text{\textbf{Definition:} If } P(F) > 0 \text{, then define }
+        P(E | F) = \frac{P(EF)}{P(F)}}. $$
+        This is also called the conditional probability of E given F and is
+        intuitive given a venn diagram.
+
+    \item[\textbf{\underline{Example:}}] \textbf{Roll 2 dice. Find the
+        probability both dice are even given their sum is greater than or equal
+    to 10.} \\
+    Let us define the events:
+        $$ \begin{aligned}
+            E &= \text{Both dice are even}\\
+            F &= \text{Sum is } \geq 10 \\
+              &= \{ (6,6), (6,5), (5,6), (6,4), (4,6), (5,5) \}
+        \end{aligned} $$
+        We want $P(E | F)$.
+        $$ \begin{aligned}
+            EF &= \{(6,6), (6,4), (4,6)\}\\
+            P(EF) &=  \frac{|EF|}{|S|} = \frac{3}{36} = \frac{1}{12} \\
+            P(F) &=  \frac{|F|}{|S|} = \frac{6}{36} = \frac{1}{6} \\
+            P(E|F) &=  \frac{P(EF)}{P(F)} = \frac{\frac{3}{36}}{\frac{6}{36}} =
+            \frac{3}{6} = \frac{1}{2} \\
+        \end{aligned} $$
+        \textbf{Now find the probability the sum = 7, given the sum $\neq$ 6.}
+    Let us define the events:
+        $$ \begin{aligned}
+            E &= \text{Sum = 7}\\
+            F &= \text{Sum} \neq 6 \\
+        \end{aligned} $$
+        We want $P(E | F)$.
+        $$ \begin{aligned}
+            E &= \{(1,6), (6,1), (2,5), (5,2), (4,3), (3,4)\}\\
+            F &= \{(1,5), (5,1), (4,2), (2,4), (3,3)\}^c \\
+            P(F^c) &= \frac{5}{36} \\
+            P(F)   &= 1 - \frac{5}{36} = \frac{31}{36} \\
+        \end{aligned} $$
+        \textbf{Note:} $E \subseteq F$ implies $EF = E$. Therefore,
+        $$ \begin{aligned}
+            P(EF) &= P(E) = \frac{6}{36} \\
+            P(EF) &= \frac{P(EF)}{P(F)} = \frac{\frac{6}{36}}{\frac{31}{36}} =
+            \frac{6}{31} \\
+        \end{aligned} $$
+\end{itemize}
+
+\textbf{Special Cases:}
+\begin{enumerate}
+    \item If $E,F$ are disjoint, then $EF = 0$, so $P(EF) = 0$. \\
+        $\therefore P(E|F) = \frac{P(EF)}{P(F)} = 0$
+    \item If $E \subseteq F$, then $EF = E$. So $P(F|E) = \frac{P(EF)}{P(E)} =
+        \frac{P(E)}{P(E)} = 1$
+\end{enumerate}
+
+\textbf{Potential useful property:}
+$$ \boxed{P(EF) = P(E|F)P(F) = P(F|E)P(E)}$$
+
+\begin{itemize}
+    \item[\textbf{\underline{Example:}}] \textbf{A box contains 3 blue, 4 red,
+            and 7
+        green marbles. One marble is chosen at random and it is not red. What is
+    the probability that it is blue?}
+\end{itemize}
+    Let us define the events:
+        $$ \begin{aligned}
+            E &= \text{Marble is blue}\\
+            F &= \text{Marble is not red} \\
+        \end{aligned} $$
+        We want $P(E | F)$.
+        We know that
+        $$ \begin{aligned}
+            P(F^c) &= P(\text{Marble is red})\\
+                   &= \frac{4}{3 + 4 + 7} = \frac{4}{14} \\
+            P(F) &= 1 - \frac{4}{14} = \frac{10}{14} \\
+        \end{aligned} $$
+        We claim that $E \subseteq F$, as the even that a blue marble is chosen
+        implies that the chosen marble is not red, whereas if the chosen marble
+        is not red, this does not imply that the marble is blue. Resultantly,
+        $$ \begin{aligned} 
+            EF &= E \\
+            P(EF) &= P(E) = \frac{3}{14} \\
+        \end{aligned}$$
+        $$ \therefore P(E|F) = \frac{P(EF)}{P(F)} =
+        \frac{\frac{3}{14}}{\frac{10}{14}} = \frac{3}{10}$$
+
+        \newpage
+
+\begin{center}
+	\Large \textbf{Week 2, Lecture 01-19-23}
+\end{center}
+\normalsize
+
+\end{document}
