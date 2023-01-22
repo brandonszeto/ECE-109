@@ -93,6 +93,7 @@
         \end{aligned} $$
 \end{itemize}
 
+\begin{flushleft}
 \textbf{Special Cases:}
 \begin{enumerate}
     \item If $E,F$ are disjoint, then $EF = 0$, so $P(EF) = 0$. \\
@@ -102,6 +103,7 @@
 \end{enumerate}
 
 \textbf{Potential useful property:}
+\end{flushleft}
 $$ \boxed{P(EF) = P(E|F)P(F) = P(F|E)P(E)}$$
 
 \begin{itemize}
@@ -138,5 +140,171 @@ $$ \boxed{P(EF) = P(E|F)P(F) = P(F|E)P(E)}$$
 	\Large \textbf{Week 2, Lecture 01-19-23}
 \end{center}
 \normalsize
+
+\begin{flushleft}
+    \textbf{Recall Conditional Probability:}
+    $$ P(E|F) = \frac{P(EF)}{P(F)} $$
+\end{flushleft}
+
+\begin{flushleft}
+    \textbf{Recall Axioms of Probability:}
+    \begin{enumerate}
+        \item $ 0 \leq P(E) \leq 1 $
+        \item $ P(S) = 1 $
+        \item If $E_1, E_2, ... $ are pairwise disjoint events, then $ P(E_1 \cup
+            E_2 \cup ... E_n ) = \sum_n P(E_n) $
+    \end{enumerate}
+    \textbf{Axioms of Conditional Probability:}
+    \begin{enumerate}
+        \item $ 0 \leq P(E|F) \leq 1 $
+        \item $ P(S|F) = 1 $
+        \item If $E_1, E_2, ... $ are pairwise disjoint events, then $ P((E_1 \cup
+            E_2 \cup ... E_n)|F) = \sum_n P(E_n|F) $
+    \end{enumerate}
+    \textbf{Partition Rule of Probability:}
+    $$ \begin{aligned} 
+        B &= BA \cup BA^c       \\
+        P(B) &= P(BA \cup BA^c) \\
+             &= P(BA) + P(BA^c) \\
+             &= \boxed{P(B|A)P(A) + P(B|A^c)P(A^c)}
+    \end{aligned} $$
+    Can be viewed as $A$ being case 1 and $A^c$ being case 2. This can be
+    further generalized to $n$ cases. Suppose $A_1, A_2, ... , A_n$ are events
+    that partition $S$. ($A_i$'s are a disjoint cover of $S$).
+    $$ \begin{aligned} 
+        \text{disjoint: }& i \neq j \rightarrow A_iA_j = 0 \\
+        \text{cover: }& S = A_1 \cup A_2 \cup ... A_n \\
+    \end{aligned} $$
+    $$ \begin{aligned} 
+        B &= BA_1 \cup BA_2 \cup ... \cup BA_n \\
+        P(B) &= P(BA_1 \cup BA_2 \cup ... \cup BA_n) \\
+             &= P(BA_1) + P(BA_2) + ... + P(BA_n) \\
+             &= \boxed{P(B|A_1)P(A_1) + P(B|A_2)P(A_2) + ... + P(B|A_n)P(A_n) }\\
+    \end{aligned} $$
+    This can be extended to conditional probability. Can be thought of as
+    inserting the cnoditional event into the above partition rule of
+    probability:
+    $$ \boxed{P(B|A_1E)P(A_1|E) + P(B|A_2E)P(A_2|E) + ... + P(B|A_nE)P(A_n|E) }$$
+
+    \begin{itemize}
+\item[\textbf{\underline{Example:}}] \textbf{Roll 1 fair 6-sided die. If the die
+    comes up $\geq 3$, then we win. If not, then we flip a fair coin and we win
+if heads and lose if tails. What is the probability of winning?} \\
+    Let us define the events:
+        $$ \begin{aligned}
+            E &= \text{Die is } \geq 3\\
+            F &= \text{We win}\\
+        \end{aligned} $$
+        We want $P(F)$.
+        $$ \begin{aligned}
+            P(F) &= P(F|E)P(E) + P(F|E^c)P(E^c) \\
+            P(E) &= P(\text{Die is 3,4,5 or 6}) = \frac{4}{6} = \frac{2}{3} \\
+            P(F|E) &= 1 \\
+            P(F|E^c) &= \frac{1}{2}\\
+            P(E^c) &= 1 - P(E) = 1 - \frac{2}{3} = \frac{1}{3} \\
+            \therefore P(F) &= (1 * \frac{2}{3}) + (\frac{1}{2} * \frac{1}{3}) =
+            \frac{5}{6}
+        \end{aligned}$$
+        \textbf{What is the probability the die is $\geq 3$, given we won?} \\
+        In this case, we want $P(E|F)$. Recall,
+        $$ \begin{aligned}
+            P(EF) &= P(F)P(E|F) \\
+                  &= P(E)P(F|E)
+        \end{aligned}$$
+        From before, we know
+        $$ \begin{aligned}
+            P(E) &= \frac{2}{3} \\
+            P(F|E) &= 1 \\
+            P(F) &= \frac{5}{6} \\
+        \end{aligned}$$
+        Plugging in,
+        $$ \begin{aligned} 
+            P(F)P(E|F) &= P(E)P(F|E) \\
+            \frac{5}{6} * P(E|F) &= \frac{2}{3} * 1 \\
+            \therefore P(E|F) &= \frac{\frac{2}{3}}{\frac{5}{6}} = \frac{4}{5}
+        \end{aligned}$$
+
+\item[\textbf{\underline{Example:}}] \textbf{A box contains 2 red and 3 green
+    marbles. Pick 2 marbles at random (without replacement). If both are green,
+we win. If both are red, we lose. Otherwise, we pick a third marble and we win
+if red, lose if green. What is the probability of winning?} \\
+Let us define the events
+        $$ \begin{aligned}
+            W &= \text{We win} \\
+            G &= \text{Both marbles are green}\\
+            R &= \text{Both marbles are red}\\
+        \end{aligned} $$
+        We want $P(W)$. The three cases for winning are:
+        $$ P(W) = P(W|G)P(G) + P(W|R)P(R) + P(W|G^cR^c)P(G^cR^c)$$
+        We know:
+        $$ \begin{aligned}
+            P(W|G) &= 1 \\
+            P(W|R) &= 0 \\
+            P(W|G^cR^c) &= \frac{1}{3} \\
+            P(G^cR^c) &= P((G \cup R)^c) \\
+                      &= 1 - P(G \cup R)
+                      &= 1 - P(G) -P(R)
+                      &= 1 - \frac{3}{5} * \frac{2}{4} - \frac{2}{5} *
+                      \frac{1}{4} = \frac{3}{5} \\
+        \end{aligned} $$
+        Plugging in,
+        $$ P(W) = (1 * \frac{3}{10}) + (0 * ?) + (\frac{1}{3}\frac{3}{5}) =
+        \frac{1}{2} $$
+\end{itemize}
+
+   \textbf{Chain Rule of Probability:} \\
+   Using the definition of conditional probability, we know:
+   $$ P(A_1A_2) = P(A_1)P(A_2|A_1) $$
+   For 3 events:
+   $$ \begin{aligned}
+       P(A_1A_2A_3) &= P(A_1(A_2A_3)) \\
+                    &= P(A_1)P(A_2A_3|A_1)
+   \end{aligned} $$
+   \textbf{Note:}
+   $$ \begin{aligned}
+       P(A_3|A_1A_2) &= \frac{P(A_1A_2A_3)}{P(A_1A_2)} \\
+                     &= \frac{P(A_2A_3|A_1) \hcancel[red]{P(A_1)}}{P(A_2|A_1)
+                     \hcancel[red]{P(A_1)}}
+   \end{aligned}$$
+   Substitute in for $P(A_2|A_1) \rightarrow$
+   $$ P(A_1A_2A_3) = P(A_1)P(A_2|A_1)P(A_3|A_1A_2) $$
+   Can keep going:
+$$ \boxed{P(A_1A_2 ... A_n) = P(A_1)P(A_2|A_1)P(A_3|A_1A_2) ... P(A_n|A_1A_2 ...
+A_{n-1})}$$
+
+   \begin{itemize}
+\item[\textbf{\underline{Example:}}] \textbf{Given a standard deck of 52 cards,
+    what is the probability of picking an ace, and then a red card (no
+replacement) ?} \\
+Let us define the events
+        $$ \begin{aligned}
+            A &= \text{First card is an ace} \\
+            R &= \text{Second card is red}\\
+            B &= \text{First card is red}\\
+        \end{aligned} $$
+        We want $P(AR)$. We know $P(AR) = P(A)P(R|A) = \frac{1}{13}P(R|A)$.
+        Therefore all we need to find is $P(R|A)$. This can be rewritten as:
+        $$ \begin{aligned}
+            P(R|A) &= P(R|BA)P(B|A) + P(R|B^cA)P(B^c|A) \\
+                   &= (\frac{25}{51} * \frac{1}{2}) + (\frac{26}{51} *
+                   \frac{1}{2}) = \frac{1}{2} \\
+            \therefore P(AR) &= \frac{1}{13} * \frac{1}{2} = \frac{1}{26}
+        \end{aligned}$$
+
+   \end{itemize}
+
+
+   \textbf{Baye's Formula:} \\
+   Suppose $A_1, A_2, ... , A_n$ is a partition of sample space $S$. Suppose we
+   know $P(B|A_i)$ for all $i$. We want $P(A_i|B)$. This can be written as:
+   $$ P(A_i|B) = \frac{P(B|A_i)P(A_i)}{P(B)} $$
+   \textbf{Note:}
+   $$ P(B) = \sum_{j = 1}^{n}P(B|A_j)P(A_j) $$
+   $$ \boxed{
+       P(A_i|B) = \frac{P(B|A_i)P(A_i)}{\sum_{j = 1}^{n}P(B|A_j)P(A_j)}
+   }$$
+
+
+\end{flushleft}
 
 \end{document}
