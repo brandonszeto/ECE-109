@@ -1,0 +1,213 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, cancel, xcolor}
+
+\newcommand\hcancel[2][black]{\setbox0=\hbox{$#2$}%
+\rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
+
+\begin{document}
+
+\begin{flushleft}
+    Brandon Szeto \\
+    Professor Kenneth Zeger \\
+	ECE 109 \\
+\end{flushleft}
+
+\begin{center}
+	\Large \textbf{Week 3, Lecture 01-24-23}
+\end{center}
+\normalsize
+
+\begin{flushleft}
+
+\begin{itemize}
+    \item[\textbf{\underline{Example:}}] \textbf{Flip a coin twice}
+        $$ S = \{HH, HT, TH, TT\} $$
+        Let us define the events:
+        $$ \begin{aligned}
+            E &= \text{"First flip is heads"} = \{HH, HT\} \\
+            F &= \text{"Flips are different"} = \{HT, TH\} \\
+        \end{aligned} $$
+        $$ \begin{aligned}
+            P(E) &= \frac{2}{4} = \frac{1}{2} \\
+            P(E|F) &= \frac{P(EF)}{P(F)} = \frac{P(\{HT\})}{P(\{HT, TH\})} \\
+                   &= \frac{\frac{1}{4}}{\frac{2}{4}} = \frac{1}{2}
+        \end{aligned} $$
+        So, in this case,
+        $$ \begin{aligned}
+            P(E) &= P(E|F) = \frac{1}{2} \\
+                 &\rightarrow E, F \text{ are independent} 
+        \end{aligned} $$
+        Let's multiply both sides by $P(F)$:
+        $$ P(E)P(F) = P(E|F)P(F) = P(EF) $$
+        i.e. $P(EF)$ factors into $P(E)P(F)$. If $P(F) \neq 0$, then this implies $P(E|F) = P(E)$.
+\end{itemize}
+        $$\boxed{ \text{\textbf{Definition:} Events } E, F \text{ are independent
+            if }
+        P(EF) = P(E)P(F). }$$
+        \textbf{Consequences:} If $E,F$ are independent, then
+        \begin{enumerate}
+            \item $E, F^c$ are independent
+            \item $E^c, F$ are independent
+            \item $E^c, F^c$ are independent
+        \end{enumerate}
+        \textbf{Proof of 1:} Assume $P(E) \neq 0$.
+        $$ \begin{aligned} 
+            P(EF^c) &= P(E)P(F^c|E) \\
+                    &= P(E)(1 - P(F|E)) \\
+                    &= P(E)(1 - P(F)) \\
+                    &= P(E)P(F^c) \\
+                    &\rightarrow E, F^c \text{ are independent}
+        \end{aligned}$$
+
+        \begin{center}
+            \textbf{Disjoint versus Independence}
+        \end{center}
+        Suppose $E, F$ are disjoint and $P(E) \neq 0$ and $P(F) \neq 0$.
+        $$ \therefore EF = 0 $$
+        $$ \begin{aligned}
+            P(EF) &= P(0) = 0 \\
+            P(E)P(F) &\neq 0
+        \end{aligned} $$
+        $$ \therefore P(EF) \neq P(E)P(F) $$
+        $$ \rightarrow P(E) \neq 0 \text{ but } P(E|F) = 0$$.
+
+        \newpage
+
+\begin{itemize}
+    \item[\textbf{\underline{Example:}}] \textbf{Given two inputs x and y, the
+        output of an XOR gate z is 1 if and only if $x \neq y$}
+        $$ x, y, z \in \{0, 1\} $$
+        Suppose x and y are chosen with equal probability $\frac{1}{2}$ and
+        independently. Let us define the events:
+        $$ \begin{aligned}
+            A &== x = 1 \\
+            B &== y = 1 \\
+            C &== z = 1 \\
+        \end{aligned} $$
+        By assumption $A, B$ are independent events.
+        $$ \begin{aligned}
+            P(A) = P(B) &= \frac{1}{2} \\
+            C &= AB^c \cup A^cB \\
+            P(C) &= P(AB^c \cup A^cB) \\
+                 &= P(AB^c) + P(A^cB) \\
+                 &= P(A)P(B^c) + P(A^c)P(B) \\
+                 &= \frac{1}{2} * \frac{1}{2} + \frac{1}{2} * \frac{1}{2} \\
+            AC &== x = 1 \text{ and } z = 1 \\
+               &== x = 1, y = 0, z = 1 \\
+               &== x = 1, y = 0 \\
+               &== AB^c \\
+            P(AC) &= P(AB^c) = P(A)P(B^c) = \frac{1}{2} * \frac{1}{2} =
+            \frac{1}{4} \\
+            \therefore P(AC) &= P(A)P(C) \\
+                             &\rightarrow A, C \text{ are independent}
+        \end{aligned} $$
+        Also by symmetry, $B, C$ are independent. But $A, C$ (also $B, C$) are
+        \textbf{not} physically indepent. It is very clear that they are part of the
+        same XOR gate.
+\end{itemize}
+
+$$ \boxed{ \begin{aligned}
+        \text{\textbf{Definition:} Events } A, B, &C \text{ are \textbf{independent}
+if all of the following are true:}  \\
+        1) \text{ } &A, B \text{ are independent} \\
+        2) \text{ } &B, C \text{ are independent} \\
+    3) \text{ } &A, C \text{ are independent} \\
+    4) \text{ } &P(ABC) = P(A)P(B)P(C)
+\end{aligned} }$$
+\textbf{Note:} If $A,B,C$ are pairwise independent, then
+$$ P(ABC) = P(A)P(B)P(C) $$
+is equivalent to $P(A|BC) = P(A)$ since:
+$$ \begin{aligned}
+    P(A|BC)P(BC) &= P(A)P(BC) \\
+    P(ABC) &= P(A)P(B)P(C)
+\end{aligned} $$
+It is possible to satisfy pairwise independence (conditions numbers 1, 2, and
+3), but not condition number 4. Consider the XOR example.
+$$ \begin{aligned}
+    ABC &== x = 1, y = 1, z = 1 = 0 \\
+    P(ABC) &= P(0) = 0 \\
+\end{aligned} $$
+But $P(A)P(B)P(C) = \frac{1}{2} * \frac{1}{2} * \frac{1}{2} = \frac{1}{8} \neq
+0$\\
+$$ \therefore \text{ condition number 4 is not satisfied.}$$
+$$ \therefore A, B, C \text{ are pairwise independent but } A, B, C \text{ are
+\textbf{not} independent} $$
+
+$$ \boxed{ \begin{aligned}
+        \text{\textbf{Definition:} Events A, B are} &\text{ \textbf{conditionally
+    independent given event C}, if:} \\
+                                                    &P(AB|C) = P(A|C)P(B|C) \\
+                                                    &\text{assuming  } P(C) \neq 0 \\
+\end{aligned}} $$
+
+\textbf{Note:} If $A, B$ are independent given $C$, then:
+$$ \begin{aligned}
+    P(A|BC) = \frac{P(ABC)}{P(BC)} &= \frac{P(AB|C)P(C)}{P(B|C)P(C)} \\
+                                   &= P(A|C)
+\end{aligned}$$
+This is similar to $P(A|B) = P(A)$ but with the extra "given C".
+
+\begin{itemize}
+    \item[\textbf{\underline{Example:}}] \textbf{Flip 2 coins} \\
+        Let us define the events:
+        $$ \begin{aligned}
+            A &= \text{"First coin is heads"} \\
+            B &= \text{"Second coin is heads"} \\
+            C &= \text{"First and second coin are both heads"} \\
+        \end{aligned} $$
+        Note: $C = AB$
+        \begin{enumerate}
+            \item $A, B$ are independent (by assumption)
+            \item $ \begin{aligned}
+                    P(A|C) &= \frac{P(AC)}{P(C)} = \frac{P(AAB)}{P(C)} = \frac{P(AB)}{P(C)} =
+                    \frac{P(C)}{P(C)} = 1 \\
+                    P(A|BC) &= \frac{P(ABC)}{P(BC)} = \frac{P(C)}{P(C)} = 1 \\
+                    \therefore P(A|C) &= P(A|BC) = 1 \\
+                                      &\rightarrow A, B \text{ are independent given } C.
+                \end{aligned} $
+            \item $ \begin{aligned}
+                    P(A|C^c) &= \frac{P(AC^c)}{P(C^c)} = \frac{P(HT)}{1 - P(HH)}
+                    = \frac{\frac{1}{4}}{1 - \frac{1}{4}} = \frac{1}{3}
+                    \frac{P(C)}{P(C)} = 1 \\
+                    P(A|BC^c) &= \frac{P(ABC^c)}{P(BC^c)} = \frac{P(0)}{P(TH)} =
+                    0\\
+                    \therefore P(A|C^c) &\neq P(A|BC^c) \\
+                                        &\rightarrow A, B \text{ are
+                                        \textbf{not} independent given } C^c.
+                \end{aligned} $
+        \end{enumerate}
+    \item[\textbf{\underline{Example:}}] \textbf{Let a sample space of
+            equiprobable outcomes be:} \\
+            $$ S = \{ 1, 2, 3, 4, 5 \} $$
+            Let us define the events:
+        $$ \begin{aligned}
+            A &= \{1, 2, 5\} \\
+            B &= \{1, 3, 5\} \\
+            C &= \{1, 2, 3, 4\} \\
+        \end{aligned} $$
+        \begin{enumerate}
+            \item We know $P(A)$ and $P(B)$ are not independent from the
+                following: $$ \begin{aligned}
+                    P(AB) &= P(\{1, 5\}) = \frac{2}{5} \\
+                    P(A) &= P(B) = \frac{3}{5} \\
+                    P(AB) &\neq P(A)P(B) \\
+                          &\rightarrow A, B \text{ \textbf{not} independent}
+                \end{aligned} $$
+            \item However, given $C$, this changes $ \begin{aligned}
+                    P(AB|C) &= P(\{1,5\}|\{1,2,3,4\}) = \frac{1}{4} \\
+                    P(A|C) &= P(\{1,2,5\}|\{1,2,3,4\}) = \frac{2}{4} =
+                    \frac{1}{2} \\
+                    P(B|C) &= P(\{1,3,5\}|\{1,2,3,4\}) = \frac{2}{4} =
+                    \frac{1}{2} \\
+                    \therefore P(AB|C) &= P(A|C) * P(B|C) \\
+                                       &\rightarrow A, B \text{ are independent
+                                       given }
+                                       C.
+                \end{aligned} $
+        \end{enumerate}
+\end{itemize}
+
+\end{flushleft}
+
+\end{document}
