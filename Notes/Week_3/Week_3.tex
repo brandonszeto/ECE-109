@@ -1,6 +1,6 @@
 \documentclass[10pt]{article}
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath, amssymb, cancel, xcolor}
+\usepackage{amsmath, amssymb, cancel, xcolor, mathtools}
 
 \newcommand\hcancel[2][black]{\setbox0=\hbox{$#2$}%
 \rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
@@ -207,6 +207,143 @@ This is similar to $P(A|B) = P(A)$ but with the extra "given C".
                 \end{aligned} $
         \end{enumerate}
 \end{itemize}
+
+\newpage
+
+\begin{center}
+	\Large \textbf{Week 3, Lecture 01-26-23}
+\end{center}
+
+\begin{itemize}
+    \item[\textbf{\underline{Example:}}] \textbf{Experiment: Flip 3 coins.
+        Define event E = "exactly one head". What is the probability event E
+    occurs exactly k times in n trials?} \\
+    This can be thought of as $E$ occuring $k$ times and $E^c$ occurring $n - k$
+    times.
+    $$ \begin{aligned}
+        = (P(E))^k * (P(E^c))^{n-k} \\
+        = (P(E))^k * (1 - P(E))^{n-k} \\
+    \end{aligned}$$
+    There are $\binom{n}{k}$ arrangements of where the $k$ occurrences of $E$
+    could be, so the total probability is 
+    $$ \binom{n}{k} (P(E))^k * (1 - P(E))^{n-k} $$
+
+\item[\textbf{\underline{Example:}}] \textbf{Now we use three biased coins.}
+    $$ \begin{aligned}
+        E &=  \text{exactly one head occurs} \\
+        P(E) &= P(\{HTT, THT, TTH\}) \\
+             &= 3q(1 - q)^2
+    \end{aligned}$$
+    \textbf{P(E occurs 4 times in 10 trials)} \\
+    (i.e. when k = 4, n = 10)
+    $$ \binom{10}{4}(3q(1-q)^2)^4(1-3q(1-q)^2)^{10 - 4}$$
+
+\item[\textbf{\underline{Example:}}] \textbf{Suppose A, B are events in an
+    experiment and are disjoint. What is the probability A occurs before B in
+independent trials?} \\
+    This can happen in these ways:
+    $$ \begin{aligned}
+        &C = (A \cup B)^c = \text{neither} \\
+        &A \\
+        &C, A \\
+        &C, C, A \\
+        &C, C, C, ..., A \\
+    \end{aligned} $$
+    The net probability is 
+    $$ \begin{aligned}
+        &P(A) + P(C)P(A) = (P(C))^2P(A) + (P(C))^3P(A) + ...  \\
+        &= P(A)(1 + P(C) + P(C)^2 + P(C)^3 + ... ) \\
+        &= P(A)\left( \frac{1}{1 - P(C)} \right) = \frac{P(A)}{P(A) + P(B)}
+    \end{aligned}$$
+
+\item[\textbf{\underline{Example:}}] \textbf{3 coin flips (fair coins)}
+    Define:
+    $$ \begin{aligned}
+        A &= \text{3 heads} \\
+        B &= \text{1 head} \\
+    \end{aligned} $$
+    Therefore, P(exactly 3 heads before exactly 1 head):
+    $$ \frac{P(A)}{P(A) + P(B)} = \frac{\frac{1}{8}}{\frac{1}{8} + \frac{3}{8}}
+    = \frac{1}{4} $$
+\item[\textbf{\underline{Example:}}] \textbf{Flip biased coin (q = P(H))
+    repeatedly until we get at least 10 heads, then stop. What is the
+probability we flip the coin exactly 15 times?} \\
+This situation occurs when we flip heads after having flipped 9 heads and 5
+tails in any order for a total of 14 flips. Therefore the probability can be
+found by
+$$ \binom{14}{5}q^9(1 - q)^5 * q $$
+
+\item[\textbf{\underline{Example:}}] \textbf{Flip the biased coin until we get
+    at least 3 heads and 5 tails. What is the probability we flip the coin
+exactly 20 times?} \\
+This situation can occur in two ways: when we flip heads after having flipped 2
+heads and 17 tails, or when we flips tails after having flipped 4 tails and 15
+heads. Therefore, the probability can be found by
+$$ \binom{19}{2}q^2(1 - q)^{17} * q + \binom{19}{4}q^{15}(1 - q)^4 * (1 - q) $$
+\end{itemize}
+
+$$\boxed{ \text{\textbf{Definition:} A random variable for a sample space } S
+    \text{ is a mapping }
+X: S \rightarrow \mathbb{R}}$$
+In other words, for  each $u \in S$, $X(u)$ is a real number.
+
+\begin{itemize}
+    \item[\textbf{\underline{Example:}}] \textbf{S = \{apple, banana, orange\}}
+        \\
+        Let
+        $$ \begin{aligned}
+            &X(\text{apple}) = 3 \\
+            &X(\text{banana}) = -\pi \\
+            &X(\text{orange}) = 0 \\
+        \end{aligned} $$
+        Let
+        $$ \begin{aligned}
+            &Y(\text{apple}) = 5 \\
+            &Y(\text{banana}) = 6 \\
+            &Y(\text{orange}) = 6 \\
+        \end{aligned} $$
+        X, Y are random variables. This can be abbreviated as r.v.
+
+    \item[\textbf{\underline{Example:}}] \textbf{Flip 3 coins (fair) Define r.v.
+        X as follows:} \\
+        X counts the number of heads.
+        $$ \begin{aligned}
+            X(HHH) &= 3 \\
+            X(HTH) &= X(THH) = X(HHT) = 2\\
+            X(HTT) &= X(THT) = X(TTH) = 1\\
+            X(TTT) &= 0 \\
+        \end{aligned} $$
+        Define the r.v. Y as follows:
+        $$ \begin{aligned}
+            Y(HHH) &= 1 \\
+            Y(u) &= 0 \text{ if } u \neq HHH\\
+        \end{aligned} $$
+        Convention to use upper case letters for random variables. The above
+        information can be used to find the following probabilities:
+        $$ \begin{aligned}
+            P( X = 2 ) &= \frac{3}{8} \\
+            P( X \leq 2 ) &= \frac{7}{8} \\
+            P( Y < \frac{1}{2} ) &= \frac{7}{8} \\
+            P( X = Y ) &= \frac{1}{8} \\
+            P( X > Y ) &= \frac{7}{8} \\
+        \end{aligned}$$
+        What does $P(X = 2)$ actually mean? It means the probability of the
+        event
+        $$ \{ u \in S : X(u) = 2 \}$$
+        $$ = \{ HHT, HTH, THH \} $$
+        The notation "x = 2" means the above event.
+        Similarly,
+        $$ \begin{aligned}
+            X \leq 2 &= \{ u \in S : X(u) \leq 2 \} \\
+            X = Y &= \{ u \in S : X(u) = Y(u) \}
+        \end{aligned}$$
+        Random variables are not random. Inputs are random and thus outputs are
+        random.
+
+\end{itemize}
+
+$$\boxed{ \text{\textbf{Cummulative Distribution Function (CDF)} of a random
+variable X is } F_x(u) = P(x \leq u) }$$
 
 \end{flushleft}
 
