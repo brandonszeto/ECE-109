@@ -1,0 +1,121 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, cancel, xcolor, mathtools, graphicx}
+
+\newcommand\hcancel[2][black]{\setbox0=\hbox{$#2$}%
+\rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
+
+\begin{document}
+
+\begin{flushleft}
+    Brandon Szeto \\
+    Professor Kenneth Zeger \\
+	ECE 109 \\
+\end{flushleft}
+
+\begin{center}
+	\Large \textbf{Week 5, Lecture 02-09-23}
+\end{center}
+\normalsize
+
+\begin{flushleft}
+
+\begin{itemize}
+    \item Gaussian pdfs
+        $$ f_x(u) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}(\frac{\sigma -
+        m}{\sigma})^2} $$
+    \item Special case: m = 0, $\sigma^2 = 1$ 
+        $$ X - N(0,1) $$
+        It is called a standard or unit Gaussian (or normal)
+    \item Prove the constant in front is correct. Show that it integrates to 1.
+    \item Let $$ f_x(u) = Ce^{\frac{1}{2}(\frac{u - c}{\sigma})^2} $$
+    \item Know $$ 1 = \int_{-\infty}^{\infty} f_x(u)du $$
+    \item Trick to get the indefinite integral (use u substitution and look at
+        the square of the integral) results in:
+        $$ \begin{aligned}
+            I^2 &= (\int_{-\infty}^{\infty}e^{-v^2/2} dv)^2 \\
+                &= (\int_{-\infty}^{\infty}e^{-x^2/2} dx)
+                (\int_{-\infty}^{\infty}e^{-y^2/2} dy) \\
+                &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} e^{(x^2 +
+                y^2)/2} dxdy
+        \end{aligned}$$
+    \item Convert to polar coordinates (remember that $r^2 = x^2 + y^2$)
+        $$ \begin{aligned}
+            &= \int_{0}^{2\pi} \int_{0}^{\infty}e^{-r^2/2}drd\theta \\
+            &= 2\pi \int_{0}^{\infty} \\
+            &\therefore I^2 = 2\pi => I = \sqrt{2\pi} \\
+            &\therefore \frac{1}{\sigma c} = I = \sqrt{2\pi} \\
+            C &= \frac{1}{\sigma \sqrt{2\pi}}
+        \end{aligned} $$
+    \item Expectation (expected value, average, mean)
+    \item Example: Given a set of numbers $a_1, a_2, a_3, ..., a_n$, their
+        average is $$ \frac{a_1 + a_2 + a_3 + ... + a_n }{n} $$
+    \item Suppose $X$ is a discrete random variable with pmf:
+        $$ P_x(1) = \frac{1}{4}, P_x = \frac{1}{4}, P_x(20) = \frac{1}{2} $$
+        If we observe a independent value of $X$ (for large n), you would expect
+        roughly $\frac{n}{4}$ 1's, $\frac{n}{4}$ 10's, and $\frac{n}{2}$ 20's.
+        So the average would be about:
+        $$ \frac{\frac{n}{4} + \frac{n}{4} * 10 + \frac{n}{2} * 20 }{n} = 12.75$$
+        Definition:
+        $$ \boxed{ \text{If X is a discrete random variable, then its
+        expected value is: } E(X) = \sum_u u * P_x(u) } $$
+        The sum is really over only those $u$ for which $P_x(u)$ is nonzero.
+    \item Example: X is uniform discrete on $\{ -1, 1 \}$ \\
+        The expected value of $X$ is:
+        $$ E(X) = (1 * \frac{1}{2}) + (-1 * \frac{1}{2}) = 0$$
+        This mean is 0
+    \item Continuous random variables: \\
+        As $du \rightarrow 0$, the probability of the shaded region is
+        approximately $f_x(u)du$. Thus, the mean is about:
+        $$ \sum_u u f_x(u)du = \int_{-\infty}{\infty} u f_x(u) du $$
+
+        Definition:
+        $$ \boxed{ \text{If X is a discrete random variable, then its
+        expected value is: } E(X) = u f_x(u) du } $$
+    \item Example: Find the mean of a uniform random variable on the interval
+        from a to b. \\
+        $$ \begin{aligned}
+            E(X) &= \int_{-\infty}^{\infty} u f_xd(u) du \\
+                 &= \int_{a}^{b} du \\
+                 &= \frac{1}{b - a} * \frac{b^2 - a^2}{2} = \frac{a + b}{2} \\
+                 &= \text{ The midpoint of the interval from a to b.}
+        \end{aligned}$$
+
+    \item Example: Find the mean of a binomial random variable. Recall pmf.
+        $$ P_x(K) = \binom{n}{k}p^K(1 - p)^{n - K} $$
+        $$ \begin{aligned} 
+            E(X) &= \sum_u u P_x(u)  \\
+                 &= \sum_{k = 0}^n K * \binom{n}{k} p^k(1 - p)^{n - k} \\
+                 &= \sum_{k = 1}^n K * \frac{n!}{k!(n - k)!} p^k(1 - p)^{n - k}
+                 \\
+                 &= (np) \sum_{k = 1}^n \frac{(n - 1)!}{(k - 1)!(n - 1 - (k +
+                 1)!} * p^{k - 1}(1 - p)^{n - 1 - (k + 1)} \\
+                 &= (np) \sum_{j = 0}^m \frac{m!}{j!(m - j)!} * p^j (1 - p)^{m -
+                 j} \\
+                 &= (np) * 1 = np \\
+                 &\therefore E(X) = np
+        \end{aligned}$$
+        i.e. If you flip a biased coin $n$ times, the average number of heads is
+        np.
+    \item Example: Find the  mean of a poisson random variable X. The pmf is:
+        $$ P_x(K) = \frac{e^{-\lambda} \lambda^K}{k!} $$
+        $$\begin{aligned}
+            E(X) &= \sum_{k = 0}^{\infty} K P_x(K) = \sum_{k = 0}^{\infty} *
+            \frac{e^{-\lambda} \lambda^K}{k!}  \\
+                 &= \lambda e^{- \lambda} * \sum_{k = 1}^{\infty}
+                 \frac{\lambda^{k - 1}}{(k - 1)!} \\
+                 &= \lambda e^-\lambda * e^\lambda = \lambda \\
+                 &\therefore E(X) = \lambda
+    \end{aligned}$$
+\item Example: Find the mean of a geometric random variable. The pmf:
+    $$ P_x(K) = p(1 - p)^{k - 1} $$
+
+\item Example: Find the mean of a Gaussian random variable. The pmf:
+
+\item Example: Find the mean of a exponential random variable. The pmf:
+
+\end{itemize}
+
+\end{flushleft}
+
+\end{document}
